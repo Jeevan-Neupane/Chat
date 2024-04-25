@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
     reducerPath: "userApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9995/api" }),
 
     endpoints: (builder) => ({
 
@@ -15,11 +15,13 @@ export const userApi = createApi({
 
 
 
-        createUser: builder.mutation({
-            query: (body) => ({
-                url: `/user`,
+        registerUser: builder.mutation({
+            query: (formData) => ({
+                url: `auth/signup`,
                 method: "POST",
-                body,
+              
+                
+                body: formData,
             })
         }),
 
@@ -28,4 +30,4 @@ export const userApi = createApi({
     })
 })
 
-export const { useGetUserQuery, useCreateUserMutation } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation } = userApi;

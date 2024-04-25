@@ -8,30 +8,34 @@ import {
   SignUpButton,
   SignUpFormContainer,
 } from "./style";
-import { useState, ChangeEvent, useRef } from "react";
+import { useState, ChangeEvent, useRef, useEffect } from "react";
 import {
   Avatar,
   AvatarImage,
   AvatarPlaceholder,
   Container,
 } from "./avatarstyle";
-
+import ButtonLoading from "../alert/Loading.tsx";
 import Input from "../../reusablecomponents/inputField/Input";
 import { gender } from "../../data/gender.ts";
+import { useRegisterUserMutation } from "../../store/api/userApi.ts";
+import ErrorAlert from "../alert/ErrorAlert.tsx";
+import SuccessAlert from "../alert/SuccessAlert.tsx";
 type Props = {};
 type Inputs = {
   fullName: string;
   username: string;
   password: string;
-  confirmPassword: string;
   email: string;
+  gender: string;
 };
 
 type ProfileImage = File | null;
 
 const Signup = ({}: Props) => {
   const [profileImage, setProfileImage] = useState<ProfileImage>(null);
-
+  // @ts-ignore
+  const [registerUser, status] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
@@ -40,13 +44,40 @@ const Signup = ({}: Props) => {
   } = useForm<Inputs>();
 
   const onFormSubmit = (data: Inputs) => {
-
-    const allUserData = { ...data, profileImage };
-
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    formData.append("email", data.email);
+    formData.append("avatar", profileImage as File);
+    formData.append("gender", data.gender);
+    console.log(formData);
+    registerUser(formData);
   };
+  const { data, isLoading, error } = status;
 
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  console.log(data);
+  console.log(error);
+
+  useEffect(() => {
+    if (data) {
+      SuccessAlert({
+        title: "Success",
+        message: data?.data?.message,
+      });
+    }
+
+    if (error) {
+      ErrorAlert({
+        title: "Error",
+        // @ts-ignore
+        message: error?.data?.message.message,
+      });
+    }
+  }, [data, error]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,6 +96,7 @@ const Signup = ({}: Props) => {
       fileInputRef.current.click();
     }
   };
+
   return (
     <SignUpFormContainer onSubmit={handleSubmit(onFormSubmit)}>
       <InputWrapper>
@@ -146,7 +178,7 @@ const Signup = ({}: Props) => {
       </InputWrapper>
       <InputWrapper>
         <Label>Gender</Label>
-        <SelectDropDown>
+        <SelectDropDown {...register("gender")}>
           {gender.map((item, index) => {
             return (
               <OptionsDropDown
@@ -177,7 +209,12 @@ const Signup = ({}: Props) => {
         />
       </InputWrapper>
 
-      <SignUpButton>Submit</SignUpButton>
+      <SignUpButton
+        disabled={isLoading}
+        cursor={isLoading ? "not-allowed" : "pointer"}
+      >
+        {isLoading ? <ButtonLoading /> : "Sign Up"}
+      </SignUpButton>
     </SignUpFormContainer>
   );
 };

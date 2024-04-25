@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+
+type Props = {
+  cursor: string;
+
+}
+
 const SignUpFormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -13,12 +19,12 @@ const SignUpFormContainer = styled.form`
 
 `;
 
-const SignUpButton = styled.button`
+const SignUpButton = styled.button<Props>`
   background-color: ${props => props.theme.header_footer};
   color: ${props => props.theme.text};
   padding: 1rem;
   border: none;
-  cursor: pointer;
+  cursor: ${props=>props.cursor};
   border-radius: .5rem;
   
   margin-top: 1rem;
