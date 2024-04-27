@@ -21,6 +21,7 @@ import { gender } from "../../data/gender.ts";
 import { useRegisterUserMutation } from "../../store/api/userApi.ts";
 import ErrorAlert from "../alert/ErrorAlert.tsx";
 import SuccessAlert from "../alert/SuccessAlert.tsx";
+import { useNavigate } from "react-router-dom";
 type Props = {};
 type Inputs = {
   fullName: string;
@@ -42,6 +43,7 @@ const Signup = ({}: Props) => {
 
     formState: { errors },
   } = useForm<Inputs>();
+  const navigate = useNavigate();
 
   const onFormSubmit = (data: Inputs) => {
     const formData = new FormData();
@@ -59,15 +61,13 @@ const Signup = ({}: Props) => {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  console.log(data);
-  console.log(error);
-
   useEffect(() => {
     if (data) {
       SuccessAlert({
         title: "Success",
         message: data?.data?.message,
       });
+      navigate("/login");
     }
 
     if (error) {
