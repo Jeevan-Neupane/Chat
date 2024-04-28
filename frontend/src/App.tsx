@@ -13,10 +13,10 @@ import ProtectedRoutes from "./layouts/ProtectedRoutes.tsx";
 import Homepage from "./pages/Homepage.tsx";
 import Signuppage from "./pages/Signuppage.tsx";
 import Loginpage from "./pages/Loginpage.tsx";
+import Layout from "./layouts/Layout.tsx";
 
 const App = () => {
   const token = Cookies.get("accessToken");
-  
 
   useEffect(() => {
     if (token) {
@@ -38,11 +38,17 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <ProtectedRoutes authenticated={true}>
-          <Homepage />
-        </ProtectedRoutes>
-      ),
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: (
+            <ProtectedRoutes authenticated={true}>
+              <Homepage />
+            </ProtectedRoutes>
+          ),
+        },
+      ],
     },
     {
       path: "/signup",
@@ -65,7 +71,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-      
+
       <GlobalStyle />
     </ThemeProvider>
   );

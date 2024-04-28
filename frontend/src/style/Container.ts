@@ -11,12 +11,15 @@ margin:0 auto;
 
 
 export const Div = styled.div`
+display:flex;
+height:100vh;
+width:100vw;
 `
 
 export const Main = styled(WrapperContainer)`
 padding-top:105px;
 `
-export const HomeMain=styled(Main)`
+export const HomeMain = styled(Main)`
 
 `
 export const LoginMain = styled(Main)`
@@ -32,8 +35,7 @@ justify-content:center;
 height:80rem;
 `
 
-export const ProductsMain=styled(Main)`
-display: flex;
-gap:2rem;
-
+export const OutletDiv = styled.div`
+flex:8;
 `
+

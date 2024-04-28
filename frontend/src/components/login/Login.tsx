@@ -89,11 +89,14 @@ const Login = ({}: Props) => {
               message: "Password is required",
             },
             minLength: {
-              value: 8,
+              value: 5,
               message: "Password should be atleast 8 characters",
             },
           })}
         />
+        {errors.password && (
+          <ErrorMessage>{errors.password.message}</ErrorMessage>
+        )}
       </InputWrapper>
 
       <LoginButton
