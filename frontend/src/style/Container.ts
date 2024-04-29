@@ -16,19 +16,22 @@ height:100vh;
 width:100vw;
 `
 
-export const Main = styled(WrapperContainer)`
-padding-top:105px;
-`
-export const HomeMain = styled(Main)`
+
+
+export const HomeMain = styled.div`
+display: flex;
+align-items:center;
+justify-content:center;
+height:100vh;
 
 `
-export const LoginMain = styled(Main)`
+export const LoginMain = styled(WrapperContainer)`
 display: flex;
 align-items:center;
 justify-content:center;
 height:80rem;
 `
-export const SignupMain = styled(Main)`
+export const SignupMain = styled(WrapperContainer)`
 display: flex;
 align-items:center;
 justify-content:center;

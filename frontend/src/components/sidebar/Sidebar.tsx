@@ -1,17 +1,15 @@
-import { FaRegMessage } from "react-icons/fa6";
-import { FaUserFriends } from "react-icons/fa";
 import { SideBarOuterDiv } from "./style";
+import Friendsbar from "./Friendsbar";
+import Navbar from "./NavBar";
 type Props = {};
 
-const Navbar = ({}: Props) => {
-  const navbarIcons = [
-    { id: 1, icon: FaRegMessage, link: "/" },
-    { id: 2, icon: FaUserFriends, link: "/groups" },
-  ];
-
-  return <SideBarOuterDiv>
-    Sidebar
-  </SideBarOuterDiv>;
+const SideBar = ({}: Props) => {
+  return (
+    <SideBarOuterDiv>
+      <Navbar />
+      <Friendsbar />
+    </SideBarOuterDiv>
+  );
 };
 
-export default Navbar;
+export default SideBar;

@@ -14,6 +14,8 @@ import Homepage from "./pages/Homepage.tsx";
 import Signuppage from "./pages/Signuppage.tsx";
 import Loginpage from "./pages/Loginpage.tsx";
 import Layout from "./layouts/Layout.tsx";
+import Groupchat from "./pages/Groupchatpage.tsx";
+import SingleChat from "./pages/SingleChat.tsx";
 
 const App = () => {
   const token = Cookies.get("accessToken");
@@ -45,6 +47,22 @@ const App = () => {
           element: (
             <ProtectedRoutes authenticated={true}>
               <Homepage />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "/groups",
+          element: (
+            <ProtectedRoutes authenticated={true}>
+              <Groupchat />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "/chat/:chatId",
+          element: (
+            <ProtectedRoutes authenticated={true}>
+              <SingleChat />
             </ProtectedRoutes>
           ),
         },
