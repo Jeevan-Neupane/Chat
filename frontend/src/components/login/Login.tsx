@@ -4,6 +4,8 @@ import {
   LoginButton,
   ErrorMessage,
   InputWrapper,
+  SignupLink,
+  SignupLinkDiv,
 } from "./style";
 import Input from "../../reusablecomponents/inputField/Input";
 import ButtonLoading from "../alert/Loading.tsx";
@@ -103,8 +105,11 @@ const Login = ({}: Props) => {
         disabled={isLoading}
         cursor={isLoading ? "not-allowed" : "pointer"}
       >
-        {isLoading ? <ButtonLoading /> : "Sign Up"}
+        {isLoading ? <ButtonLoading /> : "Login"}
       </LoginButton>
+      <SignupLinkDiv>
+        Don't have an account? <SignupLink to='/signup'>Signup</SignupLink>
+      </SignupLinkDiv>
     </LoginFormContainer>
   );
 };

@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 export const MessageOuterDiv = styled(Link)`
 display:flex;
-align-items:center;
-justify-content:center;
-gap:1rem;
+
+
 margin-bottom:2rem;
+margin-left:2rem;
+gap:1rem;
 `
 
 

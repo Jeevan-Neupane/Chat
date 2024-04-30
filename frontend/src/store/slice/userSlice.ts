@@ -5,6 +5,7 @@ const initialState = {
     token: null,
     user: null,
     auth: false,
+    chats: [],
 }
 
 const userSlice = createSlice({
@@ -20,6 +21,9 @@ const userSlice = createSlice({
         },
         setAuth: (state, action) => {
             state.auth = action.payload;
+        },
+        setChats: (state, action) => {
+            state.chats = action.payload;
         }
     },
 });

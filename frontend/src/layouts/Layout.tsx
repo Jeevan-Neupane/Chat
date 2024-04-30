@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/sidebar/Sidebar";
+import SideBar from "../components/sidebar/Sidebar";
 import { Div, OutletDiv } from "../style/Container";
 
 type Props = {};
@@ -7,7 +7,7 @@ type Props = {};
 const Layout = ({}: Props) => {
   return (
     <Div>
-      <Navbar />
+      <SideBar />
       <OutletDiv>
         <Outlet />
       </OutletDiv>

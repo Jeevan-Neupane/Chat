@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 type Props = {
-    cursor: string;
-  
-  }
+  cursor: string;
+
+}
 export const LoginFormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -21,7 +22,7 @@ export const LoginButton = styled.button<Props>`
   color: ${props => props.theme.text};
   padding: 1rem;
   border: none;
-  cursor: ${props=>props.cursor};
+  cursor: ${props => props.cursor};
   border-radius: .5rem;
   
   margin-top: 1rem;
@@ -38,3 +39,10 @@ export const InputWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
+export const SignupLinkDiv = styled.div`
+margin-top:1rem;
+font-size:1.5rem;
+`
+export const SignupLink = styled(Link)`
+color:${props => props.theme.text};
+`
