@@ -1,11 +1,13 @@
+import Spinner from "../alert/Spinner";
 import { LogoutButton, LogoutDivOuter } from "./style";
 
 type Props = {
   logoutUser: any;
   token: string;
+  isLoading: boolean;
 };
 
-const LogoutDiv = ({ logoutUser, token }: Props) => {
+const LogoutDiv = ({ logoutUser, token, isLoading }: Props) => {
   return (
     <LogoutDivOuter>
       <LogoutButton
@@ -13,7 +15,8 @@ const LogoutDiv = ({ logoutUser, token }: Props) => {
           logoutUser(token);
         }}
       >
-        Logout
+        <span>Logout</span>
+        {isLoading && <Spinner />}
       </LogoutButton>
     </LogoutDivOuter>
   );

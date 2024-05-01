@@ -53,8 +53,8 @@ export const userApi = createApi({
             })
         }),
         singleChat: builder.mutation({
-            query: ({ chatId, token }: { chatId: string, token: string }) => ({
-                url: `/chat/${chatId}`,
+            query: ({ friendId, token }: { friendId: string, token: string }) => ({
+                url: `/chat/${friendId}`,
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -62,6 +62,17 @@ export const userApi = createApi({
 
             })
         }),
+
+        getAllChatMessages: builder.query({
+            query: ({ token, chatId }) => ({
+                url: `/message/all/${chatId}`,
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+        }),
+
         logoutUser: builder.mutation({
             query: (token) => ({
                 url: "/auth/logout",
@@ -101,4 +112,4 @@ export async function fetchUserData(token: string, search = "") {
 
 
 
-export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery } = userApi;

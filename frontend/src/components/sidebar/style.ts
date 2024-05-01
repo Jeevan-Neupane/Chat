@@ -81,6 +81,7 @@ padding:1rem;
 border:none;
 cursor: pointer;
 outline:none;
-
+display: flex;
+justify-content:space-around;
 
 `

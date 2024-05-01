@@ -32,10 +32,8 @@ const Navbar = ({}: Props) => {
     }
   };
   const token = useSelector((state: any) => state.user.token);
-  console.log(token);
   const [logoutUser, status] = useLogoutUserMutation();
   const { data, error, isLoading } = status;
-  console.log(data, error, isLoading);
 
   useEffect(() => {
     if (data) {
@@ -50,6 +48,8 @@ const Navbar = ({}: Props) => {
       }
     }
   }, [data]);
+
+  console.log(error);
 
   return (
     <NavbarOuterDiv>
@@ -68,7 +68,7 @@ const Navbar = ({}: Props) => {
       </IconsDiv>
       <UserIconDiv
         onClick={() => {
-          setShowLogoutDiv(!showLogoutDiv);
+          setShowLogoutDiv(true);
         }}
       >
         <UserImageDiv title={user?.fullName}>
@@ -86,6 +86,7 @@ const Navbar = ({}: Props) => {
             <LogoutDiv
               logoutUser={logoutUser}
               token={token}
+              isLoading={isLoading}
             />
           </OutsideClickHandler>
         )}

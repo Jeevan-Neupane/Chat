@@ -53,7 +53,6 @@ const Signup = ({}: Props) => {
     formData.append("email", data.email);
     formData.append("avatar", profileImage as File);
     formData.append("gender", data.gender);
-    console.log(formData);
     registerUser(formData);
   };
   const { data, isLoading, error } = status;

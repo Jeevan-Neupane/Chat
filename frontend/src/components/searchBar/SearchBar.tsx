@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import Input from "../../reusablecomponents/inputField/Input";
-import { SearchBarDiv, SearchIcon } from "./style";
+import { useEffect } from "react";
+import { Input, SearchBarDiv, SearchIcon } from "./style";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { fetchUserData } from "../../store/api/userApi";
@@ -9,10 +8,16 @@ import { useLocation } from "react-router-dom";
 type Props = {
   setSearchedFriends: React.Dispatch<any>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search: string;
 };
 
-const SearchBar = ({ setSearchedFriends, setLoading }: Props) => {
-  const [search, setSearch] = useState<string>("");
+const SearchBar = ({
+  setSearchedFriends,
+  setLoading,
+  setSearch,
+  search,
+}: Props) => {
   const debouncedSearch = useDebounce(search, 500);
   const token = useSelector((state: any) => state.user.token);
   const location = useLocation();
@@ -53,6 +58,7 @@ const SearchBar = ({ setSearchedFriends, setLoading }: Props) => {
         type='text'
         placeholder='Enter username'
         onChange={onInputChange}
+        value={search}
       />
     </SearchBarDiv>
   );

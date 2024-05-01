@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useSingleChatMutation } from "../store/api/userApi";
+import { useGetAllChatMessagesQuery } from "../store/api/userApi";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import Chatinput from "../components/chatinput/Chatinput";
+import { SingleChatMain } from "../style/Container";
 
 type Props = {};
 
@@ -9,19 +10,17 @@ const SingleChat = ({}: Props) => {
   const token = useSelector((state: any) => state.user.token);
   const { chatId } = useParams();
 
-  const [getSingleChat, status] = useSingleChatMutation();
-
-  const { data, isLoading, error } = status;
-
-  useEffect(() => {
-    if (token && chatId) {
-      getSingleChat({ token, chatId });
-    }
-  }, [token, chatId]);
+  const { data, isLoading, error } = useGetAllChatMessagesQuery({
+    chatId,
+    token,
+  });
 
   console.log(data, isLoading, error);
-
-  return <div>SingleChat</div>;
+  return (
+    <SingleChatMain>
+      <Chatinput />
+    </SingleChatMain>
+  );
 };
 
 export default SingleChat;

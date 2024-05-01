@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import {
   FriendImage,
   FriendImageDiv,
@@ -6,25 +7,63 @@ import {
   SearchedFriendDiv,
   SearchedFriendOuterDiv,
 } from "./style";
+import { useSingleChatMutation } from "../../store/api/userApi";
+import { useEffect, useState } from "react";
+import { addSingleChat } from "../../store/store";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../alert/Spinner";
 
 type Props = {
   searchedFriends: any;
   loading: boolean;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const SearchFriend = ({ searchedFriends, loading }: Props) => {
+const SearchFriend = ({ searchedFriends, loading, setSearch }: Props) => {
   if (searchedFriends?.length === 0) {
     return <SearchedFriendOuterDiv>No users found</SearchedFriendOuterDiv>;
   }
+  const [friendId, setFriendId] = useState<string>("");
+  const token = useSelector((state: any) => state.user.token);
+  const [createSingleChat, status] = useSingleChatMutation();
+  const { data, error, isLoading } = status;
+  const navigate = useNavigate();
+
+  const onFriendClick = (friendId: string) => {
+    createSingleChat({ friendId, token });
+  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data?.data) {
+      dispatch(addSingleChat(data.data));
+      navigate(`/chat/${data.data._id}`);
+      setSearch("");
+    }
+
+    if (error) {
+      console.log(error);
+    }
+  }, [data, error]);
+
   return (
     <SearchedFriendOuterDiv>
-      {loading ? <LoadingDiv>Loading..</LoadingDiv> : ""}
+      {loading ? (
+        <LoadingDiv>
+          <Spinner />
+        </LoadingDiv>
+      ) : (
+        ""
+      )}
       {!loading &&
         searchedFriends?.map((friend: any) => {
           return (
             <SearchedFriendDiv
-              to={`/chat/${friend._id}`}
               key={friend._id}
+              onClick={() => {
+                onFriendClick(friend._id);
+                setFriendId(friend._id);
+              }}
             >
               <FriendImageDiv>
                 <FriendImage
@@ -33,6 +72,13 @@ const SearchFriend = ({ searchedFriends, loading }: Props) => {
                 />
               </FriendImageDiv>
               <FriendNameDiv>{friend.fullName}</FriendNameDiv>
+              {isLoading && friendId === friend._id ? (
+                <LoadingDiv>
+                  <Spinner />
+                </LoadingDiv>
+              ) : (
+                ""
+              )}
             </SearchedFriendDiv>
           );
         })}

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const SearchedFriendOuterDiv = styled.div`
@@ -14,7 +13,7 @@ left:0;
 right:0;
 `
 
-export const SearchedFriendDiv = styled(Link)`
+export const SearchedFriendDiv = styled.div`
 display: flex;
 align-items:center;
 gap:2rem;
@@ -44,6 +43,11 @@ font-size:1.5rem;
 
 
 export const LoadingDiv = styled.div`
+height:100%;
+width:100%;
+display: flex;
+align-items:center;
+justify-content:center;
 
 `
 

@@ -6,8 +6,8 @@ import GlobalStyle from "./style/GlobalStyle.ts";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuth, setToken, setUser } from "./store/store.ts";
-import { useGetUserQuery } from "./store/api/userApi.ts";
+import { addAllChats, setAuth, setToken, setUser } from "./store/store.ts";
+import { useAllChatsQuery, useGetUserQuery } from "./store/api/userApi.ts";
 import LoadingScreen from "./components/alert/LoadingScreen.tsx";
 import ProtectedRoutes from "./layouts/ProtectedRoutes.tsx";
 import Homepage from "./pages/Homepage.tsx";
@@ -29,6 +29,8 @@ const App = () => {
   const acccessToken = useSelector((state: any) => state.user.token);
 
   const { data, isLoading } = useGetUserQuery(acccessToken);
+  const { data: chatData, isLoading: isChatLoading } =
+    useAllChatsQuery(acccessToken);
 
   useEffect(() => {
     if (data) {
@@ -36,6 +38,14 @@ const App = () => {
       dispatch(setAuth(true));
     }
   }, [data]);
+
+  useEffect(() => {
+    if (chatData) {
+      dispatch(addAllChats(chatData?.data));
+    } else {
+      dispatch(addAllChats([]));
+    }
+  }, [chatData]);
 
   const router = createBrowserRouter([
     {
@@ -88,7 +98,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      {isLoading || isChatLoading ? (
+        <LoadingScreen />
+      ) : (
+        <RouterProvider router={router} />
+      )}
 
       <GlobalStyle />
     </ThemeProvider>

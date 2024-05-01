@@ -1,7 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { FriendsbarOuterDiv } from "./style";
 import { useSelector } from "react-redux";
 import {
+  EmptyMessageDiv,
   FriendMessageDiv,
   FriendNameAndMessageDiv,
   FriendNameDiv,
@@ -19,41 +20,50 @@ import getFriendPhoto from "../../utils/getFriendPhoto";
 type Props = {};
 
 const Friendsbar = ({}: Props) => {
+  const [search, setSearch] = useState<string>("");
   const { pathname } = useLocation();
   const [searchedFriends, setSearchedFriends] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const token = useSelector((state: any) => state.user.token);
+
   const userId = useSelector((state: any) => state?.user?.user?._id) || "";
-  console.log(userId);
-  const data = useSelector((state: any) => state.user.allChats);
-  console.log(data);
+  const data = useSelector((state: any) => state.chats.allChats);
+
+  const { chatId } = useParams();
 
   let chatToDisplay;
 
   if (data) {
-    chatToDisplay = data.data.filter((item: any) => {
+    chatToDisplay = data?.filter((item: any) => {
       return item.isGroupChat === false;
     });
   }
 
   if (data && pathname === "/groups") {
-    chatToDisplay = data.data.filter((item: any) => {
+    chatToDisplay = data?.filter((item: any) => {
       return item.isGroupChat === true;
     });
   }
+
   return (
     <FriendsbarOuterDiv>
       <SearchBar
         setSearchedFriends={setSearchedFriends}
         setLoading={setLoading}
+        setSearch={setSearch}
+        search={search}
       />
-      {!data && <p style={{ color: "white" }}>No chats available</p>}
+      {data.length === 0 && (
+        <EmptyMessageDiv style={{ color: "white" }}>
+          Search for friends to start a conversation.
+        </EmptyMessageDiv>
+      )}
 
       {data &&
-        chatToDisplay.map((chat: any) => {
+        chatToDisplay?.map((chat: any) => {
           return (
             <MessageOuterDiv
               to={`/chat/${chat._id}`}
+              activestyle={chat._id === chatId ? "yes" : "no"}
               key={chat._id}
             >
               <FriendPhotoDiv>
@@ -80,6 +90,7 @@ const Friendsbar = ({}: Props) => {
         <SearchFriend
           searchedFriends={searchedFriends}
           loading={loading}
+          setSearch={setSearch}
         />
       )}
     </FriendsbarOuterDiv>

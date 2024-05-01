@@ -23,7 +23,6 @@ const ProtectedRoutes = ({ children, authenticated = true }: Props) => {
     setLoader(false);
   }, [authStatus, authenticated, navigate]);
 
-  console.log(authenticated && authStatus !== authenticated);
 
   return loader ? <LoadingScreen /> : <>{children}</>;
 };

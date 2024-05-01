@@ -42,3 +42,9 @@ export const OutletDiv = styled.div`
 flex:8;
 `
 
+export const SingleChatMain = styled.div`
+
+position:relative;
+height:100%;
+width:100%;
+`

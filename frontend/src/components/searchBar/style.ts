@@ -14,3 +14,11 @@ align-items:center;
 justify-content:center;
 padding-left:1rem;
 `
+export const Input=styled.input`
+ padding: 1rem;
+ border: 1px solid ${props => props.theme.header_footer};
+ border-radius: 3px;
+ background-color:${props => props.theme.header_footer};
+color: ${props => props.theme.text}; 
+outline:none;
+`
