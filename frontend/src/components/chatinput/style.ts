@@ -36,7 +36,7 @@ justify-content:center;
 
 export const MessageForm=styled.form`
 flex:1;
-
+display: flex;
 `
 
 export const Input = styled.input`

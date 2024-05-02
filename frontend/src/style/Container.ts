@@ -48,3 +48,13 @@ position:relative;
 height:100%;
 width:100%;
 `
+
+export const SingleChatLoadingDiv = styled.div`
+ 
+ display: flex;
+ align-items:center;
+ justify-content:center;
+ height:100%;
+    width:100%;
+
+`

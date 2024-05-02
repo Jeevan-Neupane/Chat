@@ -1,23 +1,47 @@
 import { useParams } from "react-router-dom";
 import { useGetAllChatMessagesQuery } from "../store/api/userApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Chatinput from "../components/chatinput/Chatinput";
-import { SingleChatMain } from "../style/Container";
+import { SingleChatLoadingDiv, SingleChatMain } from "../style/Container";
+import { useEffect } from "react";
+import { addAllMessages } from "../store/store";
+import Spinner from "../components/alert/Spinner";
+import ErrorAlert from "../components/alert/ErrorAlert";
+import AllMessages from "../components/message/AllMessages";
 
 type Props = {};
 
 const SingleChat = ({}: Props) => {
   const token = useSelector((state: any) => state.user.token);
   const { chatId } = useParams();
-
-  const { data, isLoading, error } = useGetAllChatMessagesQuery({
+  const dispatch = useDispatch();
+  const { data, isFetching, error } = useGetAllChatMessagesQuery({
     chatId,
     token,
   });
 
-  console.log(data, isLoading, error);
+  useEffect(() => {
+    if (data) {
+      dispatch(addAllMessages(data.data));
+    }
+
+    if (error) {
+      ErrorAlert({
+        title: "Error",
+        message: "Error fetching messages",
+      });
+    }
+  }, [data, error]);
+
   return (
     <SingleChatMain>
+      {isFetching ? (
+        <SingleChatLoadingDiv>
+          <Spinner />
+        </SingleChatLoadingDiv>
+      ) : (
+        <AllMessages />
+      )}
       <Chatinput />
     </SingleChatMain>
   );

@@ -73,6 +73,22 @@ export const userApi = createApi({
             })
         }),
 
+
+        postMessage: builder.mutation({
+            query: ({ token, formData }) => ({
+                url: "/message/send",
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+
+            })
+
+        }),
+
+
+
         logoutUser: builder.mutation({
             query: (token) => ({
                 url: "/auth/logout",
@@ -112,4 +128,4 @@ export async function fetchUserData(token: string, search = "") {
 
 
 
-export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery, usePostMessageMutation } = userApi;
