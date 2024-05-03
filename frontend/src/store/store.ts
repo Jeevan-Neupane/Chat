@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./slice/userSlice";
 import chatSlice from "./slice/chatSlice";
 import messageSlice from "./slice/messageSlice";
+import socketSlice from "./slice/socketSlice";
 import { userApi } from "./api/userApi";
 
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
         user: userSlice,
         chats: chatSlice,
         messages: messageSlice,
+        socket: socketSlice,
         [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

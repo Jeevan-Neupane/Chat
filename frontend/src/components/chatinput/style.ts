@@ -3,9 +3,7 @@ import styled from "styled-components";
 
 export const ChatInputOuterDiv = styled.div`
 position:absolute;
-left:0;
-right:0;
-bottom:0;
+
 background-color:${props => props.theme.header_footer};
 z-index:10000;
 display: flex;
@@ -13,6 +11,9 @@ align-items:center;
 justify-content:space-between;
 padding-left:1rem;
 padding-right:1rem;
+bottom:0;
+right:0;
+left:0;
 `
 
 
@@ -34,7 +35,7 @@ align-items:center;
 justify-content:center;
 `
 
-export const MessageForm=styled.form`
+export const MessageForm = styled.form`
 flex:1;
 display: flex;
 `

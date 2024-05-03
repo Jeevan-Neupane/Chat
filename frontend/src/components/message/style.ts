@@ -4,16 +4,33 @@ import styled from "styled-components";
 type Props = {
     rightplaced: string;
 };
+type MessageBox = {
+    colortype: string;
+}
 
-export const AllMessagesOuterDiv = styled.div``
+export const AllMessagesOuterDiv = styled.div`
+position:relative;
+height:100%;
+`
+export const AllMessagesInnerDiv = styled.div`
+height:100%;
+width:100%;
+overflow:auto;
+padding-bottom:10rem;
+
+`
 
 export const MessagesOuterDiv = styled.div<Props>`
 display: flex;
 align-items:center;
 margin-top:1rem;
 justify-content:${props => props.rightplaced === "yes" ? "flex-end" : "flex-start"};
+margin-left:1rem;
+margin-right:1rem;
 `
-
+export const MessageInnerDiv = styled.div`
+width:40%;
+`
 
 export const MessageTime = styled.div`
 `
@@ -39,15 +56,17 @@ object-position:center;
 `
 
 
-export const MessageDiv = styled.div`
+export const MessageDiv = styled.div<MessageBox>`
 font-size:1.5rem;
 margin-right:1rem;
-width:40%;
+background-color:${props => props.colortype === "yes" ? props.theme.button : props.theme.header_footer};
+padding:1rem;
+margin-left:1rem;
 `
 
-export const MessageDateDiv=styled.div``
+export const MessageDateDiv = styled.div``
 
-export const MessageDate=styled.p``
+export const MessageDate = styled.p``
 
 //*Friend Info
 
@@ -57,6 +76,9 @@ display: flex;
 padding-top:1rem;
 padding-bottom:1rem;
 padding-left:1rem;
+position:sticky;
+top:0;
+
 
 `
 

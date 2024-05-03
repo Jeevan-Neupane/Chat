@@ -44,9 +44,8 @@ flex:8;
 
 export const SingleChatMain = styled.div`
 
-position:relative;
-height:100%;
 width:100%;
+height:100%;
 `
 
 export const SingleChatLoadingDiv = styled.div`

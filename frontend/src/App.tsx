@@ -16,6 +16,8 @@ import Loginpage from "./pages/Loginpage.tsx";
 import Layout from "./layouts/Layout.tsx";
 import Groupchat from "./pages/Groupchatpage.tsx";
 import SingleChat from "./pages/SingleChat.tsx";
+import io from "socket.io-client";
+import { ENDPOINT } from "./utils/constant.ts";
 
 const App = () => {
   const token = Cookies.get("accessToken");
@@ -29,6 +31,7 @@ const App = () => {
   const acccessToken = useSelector((state: any) => state.user.token);
 
   const { data, isLoading } = useGetUserQuery(acccessToken);
+  const user = useSelector((state: any) => state.user.user);
   const { data: chatData, isLoading: isChatLoading } =
     useAllChatsQuery(acccessToken);
 
@@ -95,6 +98,16 @@ const App = () => {
       ),
     },
   ]);
+
+  useEffect(() => {
+    const socket = io(ENDPOINT);
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+    if (user) {
+      socket.emit("setup", user);
+    }
+  });
 
   return (
     <ThemeProvider theme={darkTheme}>

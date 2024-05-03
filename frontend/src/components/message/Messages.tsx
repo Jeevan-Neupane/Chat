@@ -1,39 +1,30 @@
-import dayjs from "dayjs";
 import {
   MessageDate,
   MessageDateDiv,
   MessageDiv,
+  MessageInnerDiv,
   MessagesOuterDiv,
-  UserImage,
-  UserImageDiv,
+
 } from "./style";
 import dateDifference from "../../utils/getDate";
 
 type Props = {
   message: string;
   date: Date;
-  image: string;
+
   isReceived: boolean;
 };
 
-const Messages = ({ image, message, isReceived, date }: Props) => {
-  console.log(isReceived);
+const Messages = ({ message, isReceived, date }: Props) => {
   return (
     <MessagesOuterDiv rightplaced={isReceived ? "yes" : "no"}>
-      <MessageDateDiv>
-        <MessageDate>{dateDifference(date)}</MessageDate>
-      </MessageDateDiv>
-      {!isReceived ? (
-        <UserImageDiv>
-          <UserImage
-            src={image}
-            alt='user'
-          />
-        </UserImageDiv>
-      ) : (
-        ""
-      )}
-      <MessageDiv>{message}</MessageDiv>
+      <MessageInnerDiv>
+        <MessageDateDiv>
+          <MessageDate>{dateDifference(date)}</MessageDate>
+        </MessageDateDiv>
+
+        <MessageDiv  colortype={isReceived ? "yes" : "no"}>{message}</MessageDiv>
+      </MessageInnerDiv>
     </MessagesOuterDiv>
   );
 };
