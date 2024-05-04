@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type Prop = {
+    socket: any,
+    socketConnected: boolean,
+    socketError: any,
 
+}
 
-const initialState = {
+const initialState: Prop = {
     socket: null,
     socketConnected: false,
     socketError: null,

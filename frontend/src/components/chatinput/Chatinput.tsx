@@ -15,16 +15,18 @@ import { usePostMessageMutation } from "../../store/api/userApi";
 import ErrorAlert from "../alert/ErrorAlert";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addMessage } from "../../store/store";
+import { addMessage, updateRecentMessage } from "../../store/store";
 import Spinner from "../alert/Spinner";
-import io from "socket.io-client";
-import { ENDPOINT } from "../../utils/constant";
 
 type Inputs = {
   message: string;
 };
 
-const Chatinput = () => {
+type Props = {
+  socket: any;
+};
+
+const Chatinput = ({ socket }: Props) => {
   const { register, handleSubmit, reset } = useForm<Inputs>();
   const { chatId } = useParams<{ chatId: string }>();
   const [postMessage, status] = usePostMessageMutation();
@@ -32,14 +34,6 @@ const Chatinput = () => {
 
   const dispatch = useDispatch();
   const { data, error, isLoading } = status;
-
-  useEffect(() => {
-    let socket = io(ENDPOINT);
-    if (data) {
-      socket.emit("new message", data.data);
-      console.log("message sent");
-    }
-  });
 
   const chatIcons = [
     {
@@ -77,7 +71,9 @@ const Chatinput = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addMessage(data.data));
+      socket.emit("new message", data.data);
+      dispatch(addMessage(data?.data));
+      dispatch(updateRecentMessage(data?.data));
     }
 
     if (error) {

@@ -13,6 +13,8 @@ const GlobalStyle = createGlobalStyle`
 html{
     font-size:62.5%;
 }
+
+
 body{
     font-family:${props => props.theme.font_family_one},sans-serif;
     background:${props => props.theme.background_color};

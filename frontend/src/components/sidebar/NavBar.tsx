@@ -33,7 +33,7 @@ const Navbar = ({}: Props) => {
   };
   const token = useSelector((state: any) => state.user.token);
   const [logoutUser, status] = useLogoutUserMutation();
-  const { data, error, isLoading } = status;
+  const { data, isLoading } = status;
 
   useEffect(() => {
     if (data) {
@@ -49,7 +49,6 @@ const Navbar = ({}: Props) => {
     }
   }, [data]);
 
-  console.log(error);
 
   return (
     <NavbarOuterDiv>

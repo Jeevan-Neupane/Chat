@@ -6,7 +6,11 @@ import FriendInfo from "./FriendInfo";
 import Chatinput from "../chatinput/Chatinput";
 import { useEffect, useRef } from "react";
 
-const AllMessages = () => {
+type Props = {
+  socket: any;
+};
+
+const AllMessages = ({ socket }: Props) => {
   const scrollableDivRef = useRef<HTMLDivElement>(null);
   const messages = useSelector((state: any) => state.messages.messages);
   const userId = useSelector((state: any) => state.user.user._id);
@@ -28,8 +32,6 @@ const AllMessages = () => {
     }
   }, [messages]);
 
-
-
   return (
     <AllMessagesOuterDiv>
       <AllMessagesInnerDiv ref={scrollableDivRef}>
@@ -49,7 +51,7 @@ const AllMessages = () => {
           );
         })}
       </AllMessagesInnerDiv>
-      <Chatinput />
+      <Chatinput socket={socket} />
     </AllMessagesOuterDiv>
   );
 };

@@ -146,11 +146,7 @@ const Signup = ({}: Props) => {
             required: {
               value: true,
               message: "Username is required",
-            },
-            pattern: {
-              value: /^[a-zA-Z]+$/,
-              message: "Username contains a-z and A-Z only",
-            },
+            }
           })}
         />
         {errors.username && (
