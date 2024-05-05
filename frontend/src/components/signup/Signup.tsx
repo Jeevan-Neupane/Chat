@@ -22,6 +22,7 @@ import { useRegisterUserMutation } from "../../store/api/userApi.ts";
 import ErrorAlert from "../alert/ErrorAlert.tsx";
 import SuccessAlert from "../alert/SuccessAlert.tsx";
 import { useNavigate } from "react-router-dom";
+import PasswordInput from "../../reusablecomponents/passwordInput/PasswordInput.tsx";
 type Props = {};
 type Inputs = {
   fullName: string;
@@ -146,7 +147,7 @@ const Signup = ({}: Props) => {
             required: {
               value: true,
               message: "Username is required",
-            }
+            },
           })}
         />
         {errors.username && (
@@ -187,8 +188,7 @@ const Signup = ({}: Props) => {
         </SelectDropDown>
       </InputWrapper>
       <InputWrapper>
-        <Input
-          type='password'
+        <PasswordInput
           label='Password'
           placeholder='Enter Your Password'
           {...register("password", {

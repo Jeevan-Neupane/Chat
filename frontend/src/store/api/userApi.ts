@@ -87,6 +87,16 @@ export const userApi = createApi({
 
         }),
 
+        updateMessageView: builder.mutation({
+            query: ({ messageId, token }) => ({
+                url: `/message/update/${messageId}`,
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            })
+        }),
+
 
 
         logoutUser: builder.mutation({
@@ -128,4 +138,4 @@ export async function fetchUserData(token: string, search = "") {
 
 
 
-export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery, usePostMessageMutation } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery, usePostMessageMutation, useUpdateMessageViewMutation } = userApi;

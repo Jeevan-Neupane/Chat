@@ -26,7 +26,6 @@ const chatSlice = createSlice({
         },
         updateRecentMessage(state, action) {
             let friendIndex = state.allChats.findIndex((item) => item._id === action.payload.chat._id);
-            console.log(friendIndex);
             if (friendIndex === -1) {
                 return;
             }

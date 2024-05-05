@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {
   addAllMessages,
   addMessage,
+  addRecentMessage,
   updateRecentMessage,
 } from "../store/store";
 import Spinner from "../components/alert/Spinner";
@@ -31,6 +32,7 @@ const SingleChat = ({}: Props) => {
   useEffect(() => {
     if (data) {
       dispatch(addAllMessages(data.data));
+      dispatch(addRecentMessage());
     }
 
     if (error) {

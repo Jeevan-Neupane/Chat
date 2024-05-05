@@ -20,6 +20,7 @@ type Inputs = {
 };
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../store/store.ts";
+import PasswordInput from "../../reusablecomponents/passwordInput/PasswordInput.tsx";
 type Props = {};
 
 const Login = ({}: Props) => {
@@ -81,8 +82,7 @@ const Login = ({}: Props) => {
         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
       </InputWrapper>
       <InputWrapper>
-        <Input
-          type='password'
+        <PasswordInput
           label='Password'
           placeholder='Enter Your Password'
           {...register("password", {

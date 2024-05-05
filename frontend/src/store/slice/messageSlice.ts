@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type MessageTypes = {
     messages: any[];
+    recentMessage: any | null;
 }
 
 const initialState: MessageTypes = {
     messages: [],
+    recentMessage: null
 }
 
 const messageSlice = createSlice({
@@ -22,11 +24,32 @@ const messageSlice = createSlice({
                 return;
             }
             state.messages = [...state.messages, action.payload];
+            state.recentMessage = action.payload;
 
+        },
+        addRecentMessage(state) {
+            let sizeOfMessages = state.messages.length;
+
+            if (sizeOfMessages === 0) {
+
+                return;
+            }
+            state.recentMessage = state.messages[sizeOfMessages - 1];
+
+        },
+        addUpdatedRecentMessage(state, action) {
+
+            let allUpadtedRecentMessages = state.messages.map((message) => {
+                if (message._id === action.payload._id) {
+                    return action.payload
+                }
+                return message
+            })
+            state.messages = allUpadtedRecentMessages;
         }
     },
 });
 
-export const { addAllMessages, addMessage } = messageSlice.actions;
+export const { addAllMessages, addMessage, addRecentMessage,addUpdatedRecentMessage } = messageSlice.actions;
 export default messageSlice.reducer;
 

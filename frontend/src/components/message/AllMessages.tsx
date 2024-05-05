@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AllMessagesInnerDiv, AllMessagesOuterDiv } from "./style";
 import Messages from "./Messages";
 import isReceiver from "../../utils/isReceiver";
 import FriendInfo from "./FriendInfo";
 import Chatinput from "../chatinput/Chatinput";
 import { useEffect, useRef } from "react";
+import { useUpdateMessageViewMutation } from "../../store/api/userApi";
+import { addMessage, addUpdatedRecentMessage } from "../../store/store";
 
 type Props = {
   socket: any;
@@ -14,7 +16,14 @@ const AllMessages = ({ socket }: Props) => {
   const scrollableDivRef = useRef<HTMLDivElement>(null);
   const messages = useSelector((state: any) => state.messages.messages);
   const userId = useSelector((state: any) => state.user.user._id);
+  const latestMessage = useSelector(
+    (state: any) => state.messages.recentMessage
+  );
+  const token = useSelector((state: any) => state.user.token);
+  const [updateMessage, status] = useUpdateMessageViewMutation();
+  const dispatch = useDispatch();
 
+  const { data, isLoading, error } = status;
   const nextFriend = messages[0]?.chat?.chatUsers?.filter(
     (user: any) => user._id !== userId
   );
@@ -26,11 +35,28 @@ const AllMessages = ({ socket }: Props) => {
   }
 
   useEffect(() => {
+    if (
+      latestMessage &&
+      latestMessage?.sender?._id !== userId &&
+      latestMessage?.readBy?.length === 0
+    ) {
+      updateMessage({ messageId: latestMessage._id, token });
+    }
+  }, [latestMessage]);
+
+  useEffect(() => {
     if (scrollableDivRef.current) {
       scrollableDivRef.current.scrollTop =
         scrollableDivRef.current.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data.data);
+      dispatch(addUpdatedRecentMessage(data.data));
+    }
+  }, [data]);
 
   return (
     <AllMessagesOuterDiv>
