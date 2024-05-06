@@ -51,6 +51,31 @@ connectDB().then(() => {
                 }
 
             })
+
+
+        })
+
+        socket.on("message read", (readMsg) => {
+
+            console.log("Message Read", readMsg);
+            let chatUsers = readMsg.chat.chatUsers;
+            let senderId = readMsg.sender._id;
+            console.log(senderId, chatUsers);
+
+
+            chatUsers.forEach(user => {
+                console.log("user", user);
+
+                if (user._id === senderId) {
+                    socket.to(user._id).emit("read by update", readMsg);
+
+                }
+
+            })
+
+
+
+
         })
 
 

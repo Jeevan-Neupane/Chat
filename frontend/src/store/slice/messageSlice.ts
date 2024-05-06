@@ -38,18 +38,20 @@ const messageSlice = createSlice({
 
         },
         addUpdatedRecentMessage(state, action) {
-
+            console.log(action.payload)
             let allUpadtedRecentMessages = state.messages.map((message) => {
                 if (message._id === action.payload._id) {
+                    console.log("found")
                     return action.payload
                 }
                 return message
             })
-            state.messages = allUpadtedRecentMessages;
+            state.messages = [...allUpadtedRecentMessages];
+            state.recentMessage = action.payload;
         }
     },
 });
 
-export const { addAllMessages, addMessage, addRecentMessage,addUpdatedRecentMessage } = messageSlice.actions;
+export const { addAllMessages, addMessage, addRecentMessage, addUpdatedRecentMessage } = messageSlice.actions;
 export default messageSlice.reducer;
 

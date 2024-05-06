@@ -4,7 +4,6 @@ import {
   MessageDiv,
   MessageInnerDiv,
   MessagesOuterDiv,
-
 } from "./style";
 import dateDifference from "../../utils/getDate";
 
@@ -16,6 +15,8 @@ type Props = {
 };
 
 const Messages = ({ message, isReceived, date }: Props) => {
+
+  
   return (
     <MessagesOuterDiv rightplaced={isReceived ? "yes" : "no"}>
       <MessageInnerDiv>
@@ -23,7 +24,7 @@ const Messages = ({ message, isReceived, date }: Props) => {
           <MessageDate>{dateDifference(date)}</MessageDate>
         </MessageDateDiv>
 
-        <MessageDiv  colortype={isReceived ? "yes" : "no"}>{message}</MessageDiv>
+        <MessageDiv colortype={isReceived ? "yes" : "no"}>{message}</MessageDiv>
       </MessageInnerDiv>
     </MessagesOuterDiv>
   );

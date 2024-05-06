@@ -84,7 +84,7 @@ export const updateViewBy = asyncHandler(async (req, res) => {
     const message = await Message.findById(messageId.toString()).populate("sender", "_id");
 
 
-  
+
 
 
 
@@ -102,13 +102,20 @@ export const updateViewBy = asyncHandler(async (req, res) => {
             new: true
         }
         )
-
-
     }
+
 
     if (!newMessage) {
         throw new ApiError(500, "Error while updating message")
     }
+
+    newMessage = await Message.populate(newMessage, { path: 'sender', select: 'fullName avatar' });
+    newMessage
+    newMessage = await Chat.populate(newMessage, { path: 'chat', select: 'chatUsers' });
+
+    newMessage = await User.populate(newMessage, { path: 'chat.chatUsers', select: 'fullName avatar' });
+    newMessage = await User.populate(newMessage, { path: 'readBy', select: 'fullName avatar' });
+
     return res.status(200).json(new ApiResponse(200, newMessage, "Message updated successfully"))
 
 });

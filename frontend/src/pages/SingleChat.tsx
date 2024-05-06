@@ -7,6 +7,7 @@ import {
   addAllMessages,
   addMessage,
   addRecentMessage,
+  addUpdatedRecentMessage,
   updateRecentMessage,
 } from "../store/store";
 import Spinner from "../components/alert/Spinner";
@@ -56,6 +57,10 @@ const SingleChat = ({}: Props) => {
       setNewMessage((prev: any) => {
         if (prev !== data) return data;
       });
+    });
+    socket.on("read by update", (data: any) => {
+      console.log("updated message ", data);
+      dispatch(addUpdatedRecentMessage(data));
     });
   });
 

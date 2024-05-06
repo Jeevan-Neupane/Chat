@@ -6,7 +6,8 @@ import FriendInfo from "./FriendInfo";
 import Chatinput from "../chatinput/Chatinput";
 import { useEffect, useRef } from "react";
 import { useUpdateMessageViewMutation } from "../../store/api/userApi";
-import { addMessage, addUpdatedRecentMessage } from "../../store/store";
+import { addUpdatedRecentMessage } from "../../store/store";
+import MessageSeen from "../messageSeen/MessageSeen";
 
 type Props = {
   socket: any;
@@ -23,7 +24,7 @@ const AllMessages = ({ socket }: Props) => {
   const [updateMessage, status] = useUpdateMessageViewMutation();
   const dispatch = useDispatch();
 
-  const { data, isLoading, error } = status;
+  const { data } = status;
   const nextFriend = messages[0]?.chat?.chatUsers?.filter(
     (user: any) => user._id !== userId
   );
@@ -54,9 +55,12 @@ const AllMessages = ({ socket }: Props) => {
   useEffect(() => {
     if (data) {
       console.log(data.data);
+      socket.emit("message read", data.data);
       dispatch(addUpdatedRecentMessage(data.data));
     }
   }, [data]);
+  const seenBy = latestMessage?.readBy;
+  console.log(seenBy);
 
   return (
     <AllMessagesOuterDiv>
@@ -76,6 +80,17 @@ const AllMessages = ({ socket }: Props) => {
             />
           );
         })}
+        {seenBy?.length > 0 &&
+          seenBy?.map((user: any) => {
+            if (user._id !== userId) {
+              return (
+                <MessageSeen
+                  key={user._id}
+                  image={user.avatar}
+                />
+              );
+            }
+          })}
       </AllMessagesInnerDiv>
       <Chatinput socket={socket} />
     </AllMessagesOuterDiv>
