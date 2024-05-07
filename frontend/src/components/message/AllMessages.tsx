@@ -6,7 +6,10 @@ import FriendInfo from "./FriendInfo";
 import Chatinput from "../chatinput/Chatinput";
 import { useEffect, useRef } from "react";
 import { useUpdateMessageViewMutation } from "../../store/api/userApi";
-import { addUpdatedRecentMessage } from "../../store/store";
+import {
+  addUpdatedRecentMessage,
+  updateRecentMessage,
+} from "../../store/store";
 import MessageSeen from "../messageSeen/MessageSeen";
 
 type Props = {
@@ -54,13 +57,14 @@ const AllMessages = ({ socket }: Props) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data);
       socket.emit("message read", data.data);
       dispatch(addUpdatedRecentMessage(data.data));
+      dispatch(updateRecentMessage(data.data));
     }
   }, [data]);
   const seenBy = latestMessage?.readBy;
-  console.log(seenBy);
+
+  console.log("seen by", seenBy);
 
   return (
     <AllMessagesOuterDiv>

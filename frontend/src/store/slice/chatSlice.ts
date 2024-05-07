@@ -35,10 +35,20 @@ const chatSlice = createSlice({
             updatedFriend.latestMessage[0] = action.payload;
 
             state.allChats = [updatedFriend, ...state.allChats];
+        },
+        upadateSeenMessage(state, action) {
+            let updatesList = state.allChats.map((item) => {
+                if (item._id === action.payload.chatId) {
+                    return action.payload;
+                }
+                return item;
+            })
+            state.allChats = [...updatesList];
+
         }
     },
 });
 
 
-export const { addAllChats, addSingleChat, updateRecentMessage } = chatSlice.actions;
+export const { addAllChats, addSingleChat, updateRecentMessage,upadateSeenMessage } = chatSlice.actions;
 export default chatSlice.reducer;

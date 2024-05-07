@@ -8,6 +8,7 @@ import {
   addMessage,
   addRecentMessage,
   addUpdatedRecentMessage,
+  upadateSeenMessage,
   updateRecentMessage,
 } from "../store/store";
 import Spinner from "../components/alert/Spinner";
@@ -25,10 +26,17 @@ const SingleChat = ({}: Props) => {
   const user = useSelector((state: any) => state.user.user);
   const { chatId } = useParams();
   const dispatch = useDispatch();
-  const { data, isFetching, error } = useGetAllChatMessagesQuery({
+
+  const { data, isFetching, error, refetch } = useGetAllChatMessagesQuery({
     chatId,
     token,
   });
+
+  console.log("All messages", data);
+
+  useEffect(() => {
+    refetch();
+  }, [chatId]);
 
   useEffect(() => {
     if (data) {
@@ -59,8 +67,8 @@ const SingleChat = ({}: Props) => {
       });
     });
     socket.on("read by update", (data: any) => {
-      console.log("updated message ", data);
-      dispatch(addUpdatedRecentMessage(data));
+      dispatch(updateRecentMessage(data));
+      dispatch(upadateSeenMessage(data));
     });
   });
 

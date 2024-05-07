@@ -37,6 +37,8 @@ object-position:center;
 export const FriendNameAndMessageDiv = styled.div`
 display: flex;
 flex-direction: column;
+flex:1;
+
 `
 
 export const FriendNameDiv = styled.p`
@@ -48,6 +50,9 @@ color:${props => props.theme.text};
 export const FriendMessageDiv = styled.p`
 font-size:1rem;
 color:${props => props.theme.text};
+display: flex;
+justify-content: space-between;
+width:100%;
 `
 
 

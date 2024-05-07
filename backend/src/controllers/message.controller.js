@@ -68,7 +68,7 @@ export const allMessages = asyncHandler(async (req, res) => {
     let messages = await Message.find({ chat: chatId }).populate("sender", "fullName avatar email").populate("chat").sort({ createdAt: 1 });
 
     messages = await User.populate(messages, { path: 'chat.chatUsers', select: 'fullName avatar' });
-
+    messages = await User.populate(messages, { path: 'readBy', select: 'fullName avatar' });
     if (!messages) {
         throw new ApiError(404, "No messages found")
     }

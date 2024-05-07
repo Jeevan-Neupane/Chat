@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const SideBarOuterDiv = styled.div`
-flex:2;
+flex:3;
 display: flex;
 
 `
@@ -84,4 +84,24 @@ outline:none;
 display: flex;
 justify-content:space-around;
 
+
 `
+
+export const FriendMessage=styled.div``
+export const FriendSeenDiv=styled.div`
+height:1rem;
+width:1rem;
+border-radius:50%;
+
+
+`
+
+export const FriendSeenImage=styled.img`
+height:100%;
+width:100%;
+border-radius:50%;
+object-fit:cover;
+object-position:center;
+
+`
+

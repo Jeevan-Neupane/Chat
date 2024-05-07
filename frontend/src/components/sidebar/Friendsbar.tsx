@@ -1,5 +1,10 @@
 import { useLocation, useParams } from "react-router-dom";
-import { FriendsbarOuterDiv } from "./style";
+import {
+  FriendMessage,
+  FriendsbarOuterDiv,
+  FriendSeenDiv,
+  FriendSeenImage,
+} from "./style";
 import { useSelector } from "react-redux";
 import {
   EmptyMessageDiv,
@@ -43,6 +48,7 @@ const Friendsbar = ({}: Props) => {
       return item.isGroupChat === true;
     });
   }
+  console.log("chatToDisplay", chatToDisplay);
 
   return (
     <FriendsbarOuterDiv>
@@ -76,11 +82,26 @@ const Friendsbar = ({}: Props) => {
               <FriendNameAndMessageDiv>
                 <FriendNameDiv>{getFriendName(userId, chat)}</FriendNameDiv>
                 <FriendMessageDiv>
-                  {shortenMessage(
-                    chat?.latestMessage[chat?.latestMessage?.length - 1]
-                      ?.message || "Click to start a conversation",
-                    20
-                  )}
+                  <FriendMessage>
+                    {shortenMessage(
+                      chat?.latestMessage[chat?.latestMessage?.length - 1]
+                        ?.message || "Click to start a conversation",
+                      20
+                    )}
+                  </FriendMessage>
+                  {chat?.latestMessage[0].readBy.length > 0 &&
+                    chat?.latestMessage[0]?.readBy?.map((item: any) => {
+                      if (item._id !== userId) {
+                        return (
+                          <FriendSeenDiv key={item.fullName}>
+                            <FriendSeenImage
+                              src={item.avatar}
+                              alt='friend'
+                            />
+                          </FriendSeenDiv>
+                        );
+                      }
+                    })}
                 </FriendMessageDiv>
               </FriendNameAndMessageDiv>
             </MessageOuterDiv>

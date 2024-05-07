@@ -106,6 +106,10 @@ export const fetchAllChats = asyncHandler(async (req, res) => {
         select: "fullName avatar email"
     })
 
+    chats = await User.populate(chats, {
+        path: "latestMessage.readBy",
+        select: "fullName avatar email"
+    })
 
 
 
