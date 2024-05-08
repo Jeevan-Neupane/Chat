@@ -14,9 +14,10 @@ import MessageSeen from "../messageSeen/MessageSeen";
 
 type Props = {
   socket: any;
+  chatId: string | undefined;
 };
 
-const AllMessages = ({ socket }: Props) => {
+const AllMessages = ({ socket, chatId }: Props) => {
   const scrollableDivRef = useRef<HTMLDivElement>(null);
   const messages = useSelector((state: any) => state.messages.messages);
   const userId = useSelector((state: any) => state.user.user._id);
@@ -63,8 +64,9 @@ const AllMessages = ({ socket }: Props) => {
     }
   }, [data]);
   const seenBy = latestMessage?.readBy;
-
-  console.log("seen by", seenBy);
+  console.log("seenBy", seenBy);
+  console.log("latestMessage", latestMessage);
+  let latestMessageChatId = latestMessage?.chat?._id;
 
   return (
     <AllMessagesOuterDiv>
@@ -85,6 +87,7 @@ const AllMessages = ({ socket }: Props) => {
           );
         })}
         {seenBy?.length > 0 &&
+          chatId === latestMessageChatId &&
           seenBy?.map((user: any) => {
             if (user._id !== userId) {
               return (

@@ -29,6 +29,10 @@ const chatSlice = createSlice({
             if (friendIndex === -1) {
                 return;
             }
+
+
+
+
             let updatedFriend = state.allChats[friendIndex];
             state.allChats.splice(friendIndex, 1);
 
@@ -37,18 +41,24 @@ const chatSlice = createSlice({
             state.allChats = [updatedFriend, ...state.allChats];
         },
         upadateSeenMessage(state, action) {
-            let updatesList = state.allChats.map((item) => {
-                if (item._id === action.payload.chatId) {
-                    return action.payload;
-                }
-                return item;
-            })
-            state.allChats = [...updatesList];
+            let friendIndex = state.allChats.findIndex((item) => item._id === action.payload.chat._id);
+            if (friendIndex === -1) {
+                return;
+            }
+
+
+
+
+            let updatedFriend = state.allChats[friendIndex];
+
+            updatedFriend.latestMessage[0] = action.payload;
+
+
 
         }
     },
 });
 
 
-export const { addAllChats, addSingleChat, updateRecentMessage,upadateSeenMessage } = chatSlice.actions;
+export const { addAllChats, addSingleChat, updateRecentMessage, upadateSeenMessage } = chatSlice.actions;
 export default chatSlice.reducer;

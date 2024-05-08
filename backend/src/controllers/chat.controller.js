@@ -113,11 +113,6 @@ export const fetchAllChats = asyncHandler(async (req, res) => {
 
 
 
-    if (chats?.length === 0) {
-
-        throw new ApiError(404, "No chat found")
-    }
-
     return res.status(200).json(new ApiResponse(200, chats, "Chats found successfully"))
 
 

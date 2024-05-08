@@ -16,9 +16,17 @@ import Loginpage from "./pages/Loginpage.tsx";
 import Layout from "./layouts/Layout.tsx";
 import Groupchat from "./pages/Groupchatpage.tsx";
 import SingleChat from "./pages/SingleChat.tsx";
+import io from "socket.io-client";
+import { ENDPOINT } from "./utils/constant.ts";
+let socket: any;
 
 const App = () => {
   const token = Cookies.get("accessToken");
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    
+  });
 
   useEffect(() => {
     if (token) {
@@ -60,6 +68,7 @@ const App = () => {
               <Homepage />
             </ProtectedRoutes>
           ),
+          children: [],
         },
         {
           path: "/groups",
@@ -73,7 +82,7 @@ const App = () => {
           path: "/chat/:chatId",
           element: (
             <ProtectedRoutes authenticated={true}>
-              <SingleChat />
+              <SingleChat socket={socket} />
             </ProtectedRoutes>
           ),
         },
@@ -96,7 +105,6 @@ const App = () => {
       ),
     },
   ]);
-
 
   return (
     <ThemeProvider theme={darkTheme}>

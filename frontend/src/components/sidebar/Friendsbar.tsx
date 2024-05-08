@@ -48,7 +48,6 @@ const Friendsbar = ({}: Props) => {
       return item.isGroupChat === true;
     });
   }
-  console.log("chatToDisplay", chatToDisplay);
 
   return (
     <FriendsbarOuterDiv>
@@ -89,7 +88,7 @@ const Friendsbar = ({}: Props) => {
                       20
                     )}
                   </FriendMessage>
-                  {chat?.latestMessage[0].readBy.length > 0 &&
+                  {chat?.latestMessage[0]?.readBy?.length > 0 &&
                     chat?.latestMessage[0]?.readBy?.map((item: any) => {
                       if (item._id !== userId) {
                         return (

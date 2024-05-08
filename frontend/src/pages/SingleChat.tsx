@@ -7,7 +7,6 @@ import {
   addAllMessages,
   addMessage,
   addRecentMessage,
-  addUpdatedRecentMessage,
   upadateSeenMessage,
   updateRecentMessage,
 } from "../store/store";
@@ -17,10 +16,13 @@ import AllMessages from "../components/message/AllMessages";
 import io from "socket.io-client";
 import { ENDPOINT } from "../utils/constant";
 import { setSocketConnected } from "../store/slice/socketSlice";
-let socket: any;
-type Props = {};
+import { addUpdatedRecentMessage } from "../store/store";
 
-const SingleChat = ({}: Props) => {
+type Props = {
+  socket: any;
+};
+
+const SingleChat = ({ socket }: Props) => {
   const token = useSelector((state: any) => state.user.token);
   const [newMessage, setNewMessage] = useState<any | null>(null);
   const user = useSelector((state: any) => state.user.user);
@@ -67,7 +69,8 @@ const SingleChat = ({}: Props) => {
       });
     });
     socket.on("read by update", (data: any) => {
-      dispatch(updateRecentMessage(data));
+      dispatch(addUpdatedRecentMessage(data));
+      // dispatch(updateRecentMessage(data));
       dispatch(upadateSeenMessage(data));
     });
   });
@@ -88,7 +91,10 @@ const SingleChat = ({}: Props) => {
           <Spinner />
         </SingleChatLoadingDiv>
       ) : (
-        <AllMessages socket={socket} />
+        <AllMessages
+          chatId={chatId}
+          socket={socket}
+        />
       )}
     </SingleChatMain>
   );

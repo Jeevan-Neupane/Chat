@@ -38,10 +38,8 @@ const messageSlice = createSlice({
 
         },
         addUpdatedRecentMessage(state, action) {
-            console.log(action.payload)
             let allUpadtedRecentMessages = state.messages.map((message) => {
                 if (message._id === action.payload._id) {
-                    console.log("found")
                     return action.payload
                 }
                 return message

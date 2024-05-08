@@ -24,6 +24,7 @@ const SearchBar = ({
 
   const getSearchResults = async (debouncedSearch: string) => {
     const data = await fetchUserData(token, debouncedSearch);
+    console.log(data);
     return data;
   };
 

@@ -112,7 +112,7 @@ export const userApi = createApi({
     })
 })
 
-const BASE_URL = 'http://localhost:9995/api';
+const BASE_URL = 'http://localhost:9995/api/user';
 
 export async function fetchUserData(token: string, search = "") {
     try {
