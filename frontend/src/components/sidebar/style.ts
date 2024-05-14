@@ -105,3 +105,7 @@ object-position:center;
 
 `
 
+export const UserBoxOuterDiv=styled.div`
+
+
+`

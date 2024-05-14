@@ -4,6 +4,7 @@ import {
   IconsDiv,
   NavbarOuterDiv,
   NavIcon,
+  UserBoxOuterDiv,
   UserIconDiv,
   UserImage,
   UserImageDiv,
@@ -16,6 +17,7 @@ type Props = {};
 import { useLogoutUserMutation } from "../../store/api/userApi";
 import { setAuth, setToken, setUser } from "../../store/store";
 import SuccessAlert from "../alert/SuccessAlert";
+import NotificationBell from "../notification/NotificationBell";
 
 const Navbar = ({}: Props) => {
   const [showLogoutDiv, setShowLogoutDiv] = useState(false);
@@ -49,7 +51,6 @@ const Navbar = ({}: Props) => {
     }
   }, [data]);
 
-
   return (
     <NavbarOuterDiv>
       <IconsDiv>
@@ -65,31 +66,34 @@ const Navbar = ({}: Props) => {
           );
         })}
       </IconsDiv>
-      <UserIconDiv
-        onClick={() => {
-          setShowLogoutDiv(true);
-        }}
-      >
-        <UserImageDiv title={user?.fullName}>
-          <UserImage
-            src={user?.avatar}
-            alt='user'
-          />
-        </UserImageDiv>
-        {showLogoutDiv && (
-          <OutsideClickHandler
-            onOutsideClick={() => {
-              setShowLogoutDiv(false);
-            }}
-          >
-            <LogoutDiv
-              logoutUser={logoutUser}
-              token={token}
-              isLoading={isLoading}
+      <UserBoxOuterDiv>
+        <NotificationBell />
+        <UserIconDiv
+          onClick={() => {
+            setShowLogoutDiv(true);
+          }}
+        >
+          <UserImageDiv title={user?.fullName}>
+            <UserImage
+              src={user?.avatar}
+              alt='user'
             />
-          </OutsideClickHandler>
-        )}
-      </UserIconDiv>
+          </UserImageDiv>
+          {showLogoutDiv && (
+            <OutsideClickHandler
+              onOutsideClick={() => {
+                setShowLogoutDiv(false);
+              }}
+            >
+              <LogoutDiv
+                logoutUser={logoutUser}
+                token={token}
+                isLoading={isLoading}
+              />
+            </OutsideClickHandler>
+          )}
+        </UserIconDiv>
+      </UserBoxOuterDiv>
     </NavbarOuterDiv>
   );
 };
