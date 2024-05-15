@@ -87,8 +87,16 @@ justify-content:space-around;
 
 `
 
-export const FriendMessage=styled.div``
-export const FriendSeenDiv=styled.div`
+type NotSeenMessage = {
+    activestyle: string;
+
+}
+
+export const FriendMessage = styled.div<NotSeenMessage>`
+font-weight:${props => props.activestyle === "highlight" ? "800" : "200"};
+font-size:1.5rem;
+`
+export const FriendSeenDiv = styled.div`
 height:1rem;
 width:1rem;
 border-radius:50%;
@@ -96,7 +104,7 @@ border-radius:50%;
 
 `
 
-export const FriendSeenImage=styled.img`
+export const FriendSeenImage = styled.img`
 height:100%;
 width:100%;
 border-radius:50%;
@@ -105,7 +113,7 @@ object-position:center;
 
 `
 
-export const UserBoxOuterDiv=styled.div`
+export const UserBoxOuterDiv = styled.div`
 
 
 `

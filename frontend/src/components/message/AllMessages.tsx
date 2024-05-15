@@ -64,8 +64,6 @@ const AllMessages = ({ socket, chatId }: Props) => {
     }
   }, [data]);
   const seenBy = latestMessage?.readBy;
-  console.log("seenBy", seenBy);
-  console.log("latestMessage", latestMessage);
   let latestMessageChatId = latestMessage?.chat?._id;
 
   return (

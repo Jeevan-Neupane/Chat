@@ -49,6 +49,11 @@ const Friendsbar = ({}: Props) => {
     });
   }
 
+  console.log(
+    "sender ",
+    chatToDisplay[0]?.latestMessage[0]?.sender?._id === userId
+  );
+
   return (
     <FriendsbarOuterDiv>
       <SearchBar
@@ -81,7 +86,14 @@ const Friendsbar = ({}: Props) => {
               <FriendNameAndMessageDiv>
                 <FriendNameDiv>{getFriendName(userId, chat)}</FriendNameDiv>
                 <FriendMessageDiv>
-                  <FriendMessage>
+                  <FriendMessage
+                    activestyle={
+                      chat?.latestMessage[0]?.sender?._id !== userId &&
+                      chat?.latestMessage[0]?.readBy?.length === 0
+                        ? "highlight"
+                        : "no"
+                    }
+                  >
                     {shortenMessage(
                       chat?.latestMessage[chat?.latestMessage?.length - 1]
                         ?.message || "Click to start a conversation",
