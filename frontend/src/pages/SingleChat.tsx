@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {
   addAllMessages,
   addMessage,
+  addNotification,
   addRecentMessage,
   upadateSeenMessage,
   updateRecentMessage,
@@ -79,6 +80,10 @@ const SingleChat = ({ socket }: Props) => {
     if (newMessage) {
       if (newMessage.chat._id === chatId) {
         dispatch(addMessage(newMessage));
+      }
+
+      if (newMessage.chat._id !== chatId) {
+        dispatch(addNotification(newMessage));
       }
       dispatch(updateRecentMessage(newMessage));
     }
