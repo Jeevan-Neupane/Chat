@@ -68,31 +68,31 @@ const Navbar = ({}: Props) => {
       </IconsDiv>
       <UserBoxOuterDiv>
         <NotificationBell />
-        <UserIconDiv
-          onClick={() => {
-            setShowLogoutDiv(true);
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            setShowLogoutDiv(false);
           }}
         >
-          <UserImageDiv title={user?.fullName}>
-            <UserImage
-              src={user?.avatar}
-              alt='user'
-            />
-          </UserImageDiv>
-          {showLogoutDiv && (
-            <OutsideClickHandler
-              onOutsideClick={() => {
-                setShowLogoutDiv(false);
-              }}
-            >
+          <UserIconDiv
+            onClick={() => {
+              setShowLogoutDiv(!showLogoutDiv);
+            }}
+          >
+            <UserImageDiv title={user?.fullName}>
+              <UserImage
+                src={user?.avatar}
+                alt='user'
+              />
+            </UserImageDiv>
+            {showLogoutDiv && (
               <LogoutDiv
                 logoutUser={logoutUser}
                 token={token}
                 isLoading={isLoading}
               />
-            </OutsideClickHandler>
-          )}
-        </UserIconDiv>
+            )}
+          </UserIconDiv>
+        </OutsideClickHandler>
       </UserBoxOuterDiv>
     </NavbarOuterDiv>
   );

@@ -16,12 +16,11 @@ const notificationSlice = createSlice({
     initialState,
     reducers: {
         addNotification(state, action) {
-            let notification = state.notifications.find((notification) => notification.id === action.payload._id)
-            console.log("Notification", notification)
+            let notification = state.notifications.find((notification) => notification._id === action.payload._id)
             if (notification) {
                 return;
             }
-            state.notifications = [...state.notifications, action.payload];
+            state.notifications = [action.payload, ...state.notifications];
         },
         removeNotification(state, action) {
             state.notifications = state.notifications.filter(
