@@ -21,15 +21,35 @@ const notificationSlice = createSlice({
                 return;
             }
             state.notifications = [action.payload, ...state.notifications];
+
+            state.notifications = state.notifications.map((notification) => {
+                if (notification.seen === true) return notification;
+                return {
+                    ...notification,
+                    seen: false
+                }
+            })
         },
         removeNotification(state, action) {
+            console.log("remove notification", action.payload);
             state.notifications = state.notifications.filter(
-                (notification) => notification.id !== action.payload
+                (notification) => notification._id !== action.payload._id
             );
         },
+        updateNotification(state) {
+            state.notifications = state.notifications.map((notification) => {
+
+                return {
+                    ...notification,
+                    seen: true
+                }
+
+
+            })
+        }
     },
 });
 
-export const { addNotification, removeNotification } = notificationSlice.actions;
+export const { addNotification, removeNotification, updateNotification } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

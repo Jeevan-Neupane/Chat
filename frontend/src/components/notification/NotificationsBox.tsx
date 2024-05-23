@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import {
   NotificationBoxWrapper,
   NotificationHeader,
   NotificationSingleBox,
   NotificationTitle,
   NotificationTitleDiv,
-  NotificationWrapper,
   SenderName,
   UserProfileDiv,
   UserProfileImage,
@@ -15,13 +15,15 @@ type NotificationsBoxProps = {
 };
 
 const NotificationsBox = ({ notifications }: NotificationsBoxProps) => {
-  console.log(notifications);
   return (
     <NotificationBoxWrapper>
       <NotificationHeader>Notifications</NotificationHeader>
-      {notifications.map((notification) => {
+      {notifications?.map((notification) => {
         return (
-          <NotificationSingleBox to={`/chat/${notification.chat._id}`}>
+          <NotificationSingleBox
+            to={`/chat/${notification?.chat?._id}`}
+            notRead={notification?.seen}
+          >
             <UserProfileDiv>
               <UserProfileImage src={notification?.sender?.avatar} />
             </UserProfileDiv>
@@ -29,7 +31,7 @@ const NotificationsBox = ({ notifications }: NotificationsBoxProps) => {
               <SenderName>{notification?.sender?.fullName}</SenderName>
               <NotificationTitle>
                 <span>Message: </span>
-                {notification.message}
+                {notification?.message}
               </NotificationTitle>
             </NotificationTitleDiv>
           </NotificationSingleBox>

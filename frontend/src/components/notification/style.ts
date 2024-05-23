@@ -51,9 +51,14 @@ bottom:12rem;
 left:8rem;
 z-index: 100;
 border-radius: 1rem;
-`
+overflow:auto;
 
-export const NotificationSingleBox = styled(Link)`
+`
+type notReadType = {
+    notRead: boolean
+
+}
+export const NotificationSingleBox = styled(Link) <notReadType>`
 display: flex;
 margin-top:2rem;
 display: flex;
@@ -64,6 +69,8 @@ gap:2rem;
 padding:2rem;
 border-bottom: 1px solid ${props => props.theme.lightText};
 border-top: 1px solid ${props => props.theme.lightText};
+background-color:${props => props.notRead ? props.theme.header_footer : props.theme.components};
+
 `
 
 export const UserProfileDiv = styled.div`

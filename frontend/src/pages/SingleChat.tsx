@@ -8,6 +8,7 @@ import {
   addMessage,
   addNotification,
   addRecentMessage,
+  removeNotification,
   upadateSeenMessage,
   updateRecentMessage,
 } from "../store/store";
@@ -59,7 +60,6 @@ const SingleChat = ({ socket }: Props) => {
     socket = io(ENDPOINT);
     socket.emit("setup", user._id);
     socket.on("connected", () => {
-      console.log("connected");
       dispatch(setSocketConnected(true));
     });
     socket.emit("join chat", chatId);
