@@ -8,7 +8,6 @@ import {
   addMessage,
   addNotification,
   addRecentMessage,
-  removeNotification,
   upadateSeenMessage,
   updateRecentMessage,
 } from "../store/store";
@@ -36,7 +35,6 @@ const SingleChat = ({ socket }: Props) => {
     token,
   });
 
-  console.log("All messages", data);
 
   useEffect(() => {
     refetch();

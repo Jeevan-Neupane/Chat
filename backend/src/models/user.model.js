@@ -35,6 +35,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ["male", "female"]
+    },
+    recentChatId: {
+        type: String,
+        default: ""
+
     }
 }, { timestamps: true })
 
@@ -60,7 +65,7 @@ userSchema.methods.generateAccessToken = async function () {
         email: this.email,
     }
 
-    return jwt.sign({ payload }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY});
+    return jwt.sign({ payload }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
 }
 
 

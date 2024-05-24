@@ -52,6 +52,19 @@ connectDB().then(() => {
 
             })
 
+            socket.on("chat created", (newChat) => {
+                let chatUsers = newChat.chatUsers;
+                console.log(chatUsers, newChat.sender._id)
+
+                chatUsers.forEach(user => {
+                    if (user._id !== newChat.sender._id) {
+                        socket.to(user._id).emit("new chat", newChat);
+                    }
+                })
+
+
+            })
+
 
         })
 

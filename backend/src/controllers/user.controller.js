@@ -23,3 +23,23 @@ export const searchUser = asyncHandler(async (req, res) => {
 
     res.send(users);
 })
+
+
+export const updateLatestChatId = asyncHandler(async (req, res) => {
+
+    const { chatId } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+        throw new ApiError(404, "User not found")
+    }
+
+    user.recentChatId = chatId;
+
+    await user.save();
+
+    res.send(user);
+
+
+})

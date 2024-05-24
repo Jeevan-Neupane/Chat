@@ -97,6 +97,25 @@ export const userApi = createApi({
             })
         }),
 
+        updateLatestChat: builder.mutation({
+            query: ({ chatId, token }) => ({
+                url: "user/updateLatestChatId",
+                method: "PUT",
+
+
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body: {
+                    "chatId": chatId
+                }
+
+            })
+
+
+        }),
+
 
 
         logoutUser: builder.mutation({
@@ -138,4 +157,4 @@ export async function fetchUserData(token: string, search = "") {
 
 
 
-export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery, usePostMessageMutation, useUpdateMessageViewMutation } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation, useLoginUserMutation, useAllChatsQuery, useSingleChatMutation, useLogoutUserMutation, useGetAllChatMessagesQuery, usePostMessageMutation, useUpdateMessageViewMutation, useUpdateLatestChatMutation } = userApi;

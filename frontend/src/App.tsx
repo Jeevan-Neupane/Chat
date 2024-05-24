@@ -25,7 +25,6 @@ const App = () => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    
   });
 
   useEffect(() => {
@@ -47,6 +46,8 @@ const App = () => {
       dispatch(setAuth(true));
     }
   }, [data]);
+
+  
 
   useEffect(() => {
     if (chatData) {

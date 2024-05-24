@@ -17,21 +17,25 @@ import {
 } from "./friendstyle";
 import shortenMessage from "../../utils/shortenMessage";
 import SearchBar from "../searchBar/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchFriend from "../searchFriend/SearchFriend";
 import getFriendName from "../../utils/getFreindName";
 import getFriendPhoto from "../../utils/getFriendPhoto";
+import { useUpdateLatestChatMutation } from "../../store/api/userApi";
 
 type Props = {};
 
 const Friendsbar = ({}: Props) => {
   const [search, setSearch] = useState<string>("");
+  const token = useSelector((state: any) => state.user.token);
   const { pathname } = useLocation();
   const [searchedFriends, setSearchedFriends] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   const userId = useSelector((state: any) => state?.user?.user?._id) || "";
   const data = useSelector((state: any) => state.chats.allChats);
+
+  const [updateLatestChat] = useUpdateLatestChatMutation();
 
   const { chatId } = useParams();
 
@@ -49,10 +53,13 @@ const Friendsbar = ({}: Props) => {
     });
   }
 
-  console.log(
-    "sender ",
-    chatToDisplay[0]?.latestMessage[0]?.sender?._id === userId
-  );
+  useEffect(() => {
+    if (data?.length > 0) {
+      updateLatestChat({ token, chatId: data[0]?._id });
+    }
+  }, [data]);
+
+
 
   return (
     <FriendsbarOuterDiv>

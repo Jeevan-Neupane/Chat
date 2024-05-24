@@ -24,7 +24,6 @@ const SearchBar = ({
 
   const getSearchResults = async (debouncedSearch: string) => {
     const data = await fetchUserData(token, debouncedSearch);
-    console.log(data);
     return data;
   };
 
@@ -49,6 +48,8 @@ const SearchBar = ({
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
+
+  
 
   return (
     <SearchBarDiv>

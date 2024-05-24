@@ -27,6 +27,11 @@ const chatSchema = new mongoose.Schema({
             ref: "User"
         }
     ],
+    isRequested: {
+        type: Boolean,
+        default: true
+
+    }
 
 
 
