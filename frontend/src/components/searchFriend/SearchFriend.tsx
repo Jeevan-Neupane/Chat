@@ -34,6 +34,7 @@ const SearchFriend = ({ searchedFriends, loading, setSearch }: Props) => {
   };
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     if (data?.data) {
       dispatch(addSingleChat(data.data));

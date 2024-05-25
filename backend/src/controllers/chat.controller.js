@@ -7,7 +7,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 export const createSingleChat = asyncHandler(async (req, res) => {
 
     const { userId } = req.params;
-
+    console.log("userId", userId);
 
     if (!userId) {
         throw new ApiError(400, "User Id is required")
@@ -21,6 +21,7 @@ export const createSingleChat = asyncHandler(async (req, res) => {
         ]
     }).populate("chatUsers", "-password")
         .populate("latestMessage")
+
 
 
     const receiver_user = await User.findById(userId).select("-password");
@@ -53,6 +54,7 @@ export const createSingleChat = asyncHandler(async (req, res) => {
         }
 
         const createdChat = await Chat.create(chatData);
+
 
         const new_chat = await Chat.findById(createdChat._id).populate("chatUsers", "-password").populate("latestMessage")
 

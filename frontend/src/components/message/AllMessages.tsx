@@ -28,8 +28,13 @@ const AllMessages = ({ socket, chatId }: Props) => {
   const [updateMessage, status] = useUpdateMessageViewMutation();
   const dispatch = useDispatch();
 
+  const allChats = useSelector((state: any) => state.chats.allChats);
+
+  const selectedChat = allChats?.filter((chat: any) => chat._id === chatId);
+
   const { data } = status;
-  const nextFriend = messages[0]?.chat?.chatUsers?.filter(
+
+  const nextFriend = selectedChat[0]?.chatUsers?.filter(
     (user: any) => user._id !== userId
   );
 
