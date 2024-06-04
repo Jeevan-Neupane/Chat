@@ -2,12 +2,14 @@ import { Outlet } from "react-router-dom";
 import SideBar from "../components/sidebar/Sidebar";
 import { Div, OutletDiv } from "../style/Container";
 
-type Props = {};
+type Props = {
+  socket: any;
+};
 
-const Layout = ({}: Props) => {
+const Layout = ({socket}: Props) => {
   return (
     <Div>
-      <SideBar />
+      <SideBar socket={socket}/>
       <OutletDiv>
         <Outlet />
       </OutletDiv>

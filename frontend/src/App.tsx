@@ -60,7 +60,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <Layout socket={socket}/>,
       children: [
         {
           path: "/",

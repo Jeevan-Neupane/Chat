@@ -71,6 +71,8 @@ const AllMessages = ({ socket, chatId }: Props) => {
   const seenBy = latestMessage?.readBy;
   let latestMessageChatId = latestMessage?.chat?._id;
 
+  
+
   return (
     <AllMessagesOuterDiv>
       <AllMessagesInnerDiv ref={scrollableDivRef}>

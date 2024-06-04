@@ -23,9 +23,11 @@ import getFriendName from "../../utils/getFreindName";
 import getFriendPhoto from "../../utils/getFriendPhoto";
 import { useUpdateLatestChatMutation } from "../../store/api/userApi";
 
-type Props = {};
+type Props = {
+  socket: any;
+};
 
-const Friendsbar = ({}: Props) => {
+const Friendsbar = ({ socket }: Props) => {
   const [search, setSearch] = useState<string>("");
   const token = useSelector((state: any) => state.user.token);
   const { pathname } = useLocation();
@@ -58,8 +60,6 @@ const Friendsbar = ({}: Props) => {
       updateLatestChat({ token, chatId: data[0]?._id });
     }
   }, [data]);
-
-
 
   return (
     <FriendsbarOuterDiv>
@@ -130,6 +130,7 @@ const Friendsbar = ({}: Props) => {
           searchedFriends={searchedFriends}
           loading={loading}
           setSearch={setSearch}
+          socket={socket}
         />
       )}
     </FriendsbarOuterDiv>

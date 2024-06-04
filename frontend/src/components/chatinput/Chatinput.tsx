@@ -99,7 +99,10 @@ const Chatinput = ({ socket }: Props) => {
         })}
       </ChatIconDiv>
       <MessageForm onSubmit={handleSubmit(onMessageSubmit)}>
-        <Input {...register("message")} />
+        <Input
+          {...register("message")}
+          autoFocus
+        />
 
         {isLoading ? (
           <Spinner />

@@ -1,13 +1,15 @@
 import { SideBarOuterDiv } from "./style";
 import Friendsbar from "./Friendsbar";
 import Navbar from "./NavBar";
-type Props = {};
+type Props = {
+  socket: any;
+};
 
-const SideBar = ({}: Props) => {
+const SideBar = ({socket}: Props) => {
   return (
     <SideBarOuterDiv>
-      <Navbar />
-      <Friendsbar />
+      <Navbar   />
+      <Friendsbar socket={socket}/>
     </SideBarOuterDiv>
   );
 };
